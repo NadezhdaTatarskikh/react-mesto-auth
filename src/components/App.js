@@ -13,6 +13,7 @@ import AddPlacePopup from "./AddPlacePopup.js";
 import PopupWithDeleteCard from "./PopupWithDeleteCard.js";
 
 import Register from "./Register.js";
+import Login from "./Login.js";
 
 function App() {
   /**переменные состояния попапов */
@@ -179,32 +180,36 @@ function App() {
   function handleSingOut() {
     setLoggedIn(false);
     localStorage.removeItem("jwt");
-    navigate.push("/sing-in");
+    navigate.push('/sign-in');
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-          <Header
+        <Header
           loggedIn={loggedIn}
           userEmail={userEmail}
           onSignOut={handleSingOut}
         />
         <Routes>
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/"
-          element={<ProtectedRouteElement
-            element={Main}
-            loggedId={loggedIn}
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            cards={cards}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDeleteClick}
-          />}
+          <Route
+            path="/"
+            element={
+              <ProtectedRouteElement
+                element={Main}
+                loggedId={loggedIn}
+                onEditProfile={handleEditProfileClick}
+                onEditAvatar={handleEditAvatarClick}
+                onAddPlace={handleAddPlaceClick}
+                cards={cards}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDeleteClick}
+              />
+            }
           />
+          <Route path="/sign-in" element={<Login />} />
+          <Route path="/sign-up" element={<Register />} />
         </Routes>
         <Footer loggedIn={loggedIn} />
         <EditProfilePopup
@@ -236,7 +241,7 @@ function App() {
           onUpdateAvatar={handleUpdateAvatar}
           isRenderLoading={isRenderLoading}
         />
-        </div>
+      </div>
     </CurrentUserContext.Provider>
   );
 }
