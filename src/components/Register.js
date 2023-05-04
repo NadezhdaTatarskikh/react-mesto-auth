@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import AuthWithForm from "./AuthWithForm";
 
-const Register = ({ onRegister }) => {
+const Register = ({ register }) => {
   const [ registrationValues, setRegistrationValues ] = useState({ email: '', password: '' });
 
   const handleChange = (evt) => {
@@ -13,15 +13,20 @@ const Register = ({ onRegister }) => {
   }
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Запрещаем браузеру переходить по адресу формы
-    onRegister(registrationValues);
+    // Запрещаем браузеру переходить по адресу формы
+    event.preventDefault(); 
+    register(registrationValues);
   };
 
   return (
-    <>
       <div className="auth">
-        <h2 className="auth__title">Регистрация</h2>
-        <form className="form auth__form" onSubmit={handleSubmit}>
+            <AuthWithForm
+            name={'login'}
+            title={'Регистрация'}
+			      buttonText={'Зарегистрироваться'}
+            onSubmit={handleSubmit}
+            register
+            >
           <input
             id="email"
             required
@@ -29,11 +34,13 @@ const Register = ({ onRegister }) => {
             name="email"
             placeholder="Email"
             autoComplete="email"
-            className="form__input form__input_type_email"
+            minLength="2"
+            maxLength="20"
+            className="auth__input auth__input_type_email"
             value={registrationValues.email}
             onChange={handleChange}
           />
-          <span className="auth__error"></span>
+          <span className="popup__error" id="email-error"></span>
           <input
             id="password"
             required
@@ -41,16 +48,15 @@ const Register = ({ onRegister }) => {
             name="password"
             placeholder="Пароль"
             autoComplete="password"
-            className="form__input form__input_type_password"
+            minLength="6"
+            maxLength="20"
+            className="auth__input auth__input_type_password"
             value={registrationValues.password}
             onChange={handleChange}
             />
-            <span className="auth__error"></span>
-            <button className="form__button form__button_type_register" type="submit">Зарегистрироваться</button>
-        </form>
-        <Link to="/sign-in" className="auth__login-hint">Уже зарегистрированы? Войти</Link>
+            <span className="popup__error" id="password-error"></span>
+        </AuthWithForm>
       </div>
-    </>
   );
 };
 

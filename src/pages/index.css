@@ -5,9 +5,9 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/header/__info/header__info.css);
-@import url(../blocks/header/__link/header__link.css);
-@import url(../blocks/header/__sign-out/header__sign-out.css);
 @import url(../blocks/header/__email/header__email.css);
+@import url(../blocks/header/__link-buttom/header__link-buttom.css);
+@import url(../blocks/header/__link-buttom/_type_authorized/header__link-buttombutton_type_authorized.css);
 
 @import url(../blocks/content/content.css);
 
@@ -53,6 +53,14 @@
 
 @import url(../blocks/auth/auth.css);
 @import url(../blocks/auth/__title/auth__title.css);
+@import url(../blocks/auth/__submit/auth__submit.css);
+@import url(../blocks/auth/__form/auth__form.css);
+@import url(../blocks/auth/__login-hint/auth__login-hint.css);
+@import url(../blocks/auth/__input/auth__input.css);
+
+@import url(../blocks/popup/__result/popup__result.css);
+@import url(../blocks/popup/__icon/popup__icon.css);
+@import url(../blocks/popup/__title/popup__title.css);
 
 
 

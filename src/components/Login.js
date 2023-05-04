@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AuthWithForm from "./AuthWithForm";
 
 const Login = ({ onLogin }) => {
     const [loginDataUser, setLoginDataUser] = useState({ email: "", password: "" });
@@ -17,34 +18,41 @@ const Login = ({ onLogin }) => {
     }
     return (
         <div className="auth">
-            <h3 className="auth__title">Вход</h3>
-            <form className="form" onSubmit={handleSubmit}>
+            <AuthWithForm
+            name={'login'}
+            title={'Вход'}
+            buttonText={'Войти'}
+            onSubmit={handleSubmit}
+            >
                 <input
                 id="email"
                 required
                 type="email"
                 autoComplete="email"
-                className="form__input form__input_type_email"
+                className="auth__input auth__input_type_email"
                 name="email"
-                placeholder="email"
+                placeholder="Email"
+                minLength="2"
+                maxLength="40"
                 value={loginDataUser.email || ''}
                 onChange={handleChange}
                 />
-                <span className="auth__error"></span>
+                <span className="popup__error" id="email-error"></span>
                 <input
                 id="password"
                 required
                 type="password"
                 autoComplete="password"
-                className="form__input form__input_type_password"
+                className="auth__input auth__input_type_password"
                 name="password"
-                placeholder="password"
+                placeholder="Пароль"
+                minLength="6"
+                maxLength="200"
                 value={loginDataUser.password || ''}
                 onChange={handleChange}
                 />
-                <span className="auth__error"></span>
-                <button className="form__button form__button_type_register" type="submit">Войти</button>
-         </form>
+                <span className="popup__error" id="password-error"></span>
+         </AuthWithForm>
       </div>
    )
 };

@@ -1,13 +1,17 @@
 .header__link {
 	font-size: 18px;
-	line-height: 22px;
-	color: #ffffff;
-	text-decoration: none;
-	cursor: pointer;
-	margin-left: 24px;
-	transition: opacity 0.3s;
-}
- 
+    line-height: 22px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: right;
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
  .header__link:hover {
     opacity: 0.6;
  }

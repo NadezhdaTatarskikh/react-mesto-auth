@@ -1,0 +1,31 @@
+.header__link-buttom {
+  font-size: 18px;
+  line-height: 22px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: right;
+  margin-left: 24px;
+  border: none;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header__link-buttom:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 767px) {
+  .header__link-buttom {
+     font-size: 14px;
+     line-height: 17px;
+  }
+}
+
+
+
+
+
+
+
+
