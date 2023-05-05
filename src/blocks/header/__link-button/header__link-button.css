@@ -1,4 +1,4 @@
-.header__link-buttom {
+.header__link-button {
   font-size: 18px;
   line-height: 22px;
   font-style: normal;
@@ -11,12 +11,12 @@
   cursor: pointer;
 }
 
-.header__link-buttom:hover {
+.header__link-button:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 767px) {
-  .header__link-buttom {
+  .header__link-button {
      font-size: 14px;
      line-height: 17px;
   }

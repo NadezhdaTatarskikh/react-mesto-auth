@@ -6,8 +6,8 @@
 @import url(../blocks/header/__logo/header__logo.css);
 @import url(../blocks/header/__info/header__info.css);
 @import url(../blocks/header/__email/header__email.css);
-@import url(../blocks/header/__link-buttom/header__link-buttom.css);
-@import url(../blocks/header/__link-buttom/_type_authorized/header__link-buttombutton_type_authorized.css);
+@import url(../blocks/header/__link-button/header__link-button.css);
+@import url(../blocks/header/__link-button/_type_authorized/header__link-button_type_authorized.css);
 
 @import url(../blocks/content/content.css);
 

@@ -11,16 +11,16 @@ const Header = ({ loggedIn, email, onSignOut }) => {
     <header className="header">
       <img src={logo} className="header__logo" alt="Логотип Mesto" />
       <div className='header__info'>
-        <Link to="/sign-up" className="header__link-buttom">
+        <Link to="/sign-up" className="header__link-button">
           Регистрация
         </Link>
-        <Link to="/sign-in" className="header__link-buttom">
+        <Link to="/sign-in" className="header__link-button">
           Войти
         </Link> 
       {loggedIn && (
         <nav className="header__nav">
           <span className="header__email">{email}</span>
-          <button className="header__link-buttom header__link-buttombutton_type_authorized" onClick={() => onSignOut()}>
+          <button className="header__link-button header__link-button_type_authorized" onClick={() => onSignOut()}>
             {buttonText}
           </button>
         </nav>
