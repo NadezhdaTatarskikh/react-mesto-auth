@@ -1,5 +1,5 @@
 .header__link {
-	font-size: 18px;
+	 font-size: 18px;
     line-height: 22px;
     font-style: normal;
     font-weight: 400;
@@ -17,8 +17,8 @@
  }
  
  @media screen and (max-width: 767px) {
-    .header__link {
-       font-size: 14px;
-       line-height: 17px;
-    }
- }
+   .header__link {
+      font-size: 14px;
+      line-height: 17px;
+   }
+}

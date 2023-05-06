@@ -42,8 +42,8 @@ function App() {
   const [headerEmail, setHeaderEmail] = useState('');
 
   //переменные InfoTooltip
-  const [registerSuccess, setRegisterSuccess] = useState(false); 
-  const [infoSuccess, setInfoSuccess] = useState(true); //!!!!!!!!!!
+  const [registerSuccess, setRegisterSuccess] = useState(false); //open popup 
+  const [infoSuccess, setInfoSuccess] = useState(true); 
 
   //добавили хук истории
   const navigate = useNavigate();
@@ -195,8 +195,8 @@ function App() {
   function handleRegistration(email, password) {
     auth.register(email, password)
     .then((res) => {
-      setInfoSuccess(true);  
       navigate.push('/sign-in');
+      setInfoSuccess(true);  
       return res;
     })
     .catch((err) => {
@@ -213,7 +213,6 @@ function App() {
     auth.login(email, password)
     .then(data => {
       if(data.token) {
-        // статус регистрации
         localStorage.setItem('jwt', data.token);
        setLoggedIn(true);
        setHeaderEmail(email)
@@ -249,7 +248,7 @@ const tokenCheck = () => {
     console.log(`Ошибка: ${err}`);
   });
 }
-};
+}
 
  useEffect(()=> {
     tokenCheck();

@@ -2,7 +2,7 @@ import React from "react";
 import unsuccessIcon from "../images/unsuccessIcon.svg";
 import successIcon from "../images/successIcon.svg";
 
-const InfoTooltip = ({ isOpen, onClose, isSuccess }) => {
+const InfoTooltip = ({ isOpen, onClose, success }) => {
   return (
     <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
@@ -14,14 +14,14 @@ const InfoTooltip = ({ isOpen, onClose, isSuccess }) => {
         ></button>
         <div className="popup__result">
           <img
-            src={isSuccess ? successIcon : unsuccessIcon}
+            src={success ? successIcon : unsuccessIcon}
             alt={
-              isSuccess ? "Регистрация прошла успешно" : "Регистрация не прошла"
+              success ? "Регистрация прошла успешно" : "Регистрация не прошла"
             }
             className="popup__icon"
           />
           <h3 className="popup__title">
-            {isSuccess
+            {success
               ? "Вы успешно зарегистрировались!"
               : "Что-то пошло не так! Попробуйте ещё раз."}
           </h3>

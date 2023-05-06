@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../images/logo.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 
 const Header = ({ loggedIn, email, onSignOut }) => {
   const location = useLocation();
@@ -11,12 +11,14 @@ const Header = ({ loggedIn, email, onSignOut }) => {
     <header className="header">
       <img src={logo} className="header__logo" alt="Логотип Mesto" />
       <div className='header__info'>
-        <Link to="/sign-up" className="header__link-button">
+      <Routes>
+      <Route path='/sign-in' element={<Link to="/sign-up" className="header__link-button">
           Регистрация
-        </Link>
-        <Link to="/sign-in" className="header__link-button">
+        </Link>}></Route>
+        <Route path='/sign-up' element={<Link to="/sign-in" className="header__link-button">
           Войти
-        </Link> 
+        </Link>}></Route>
+       </Routes> 
       {loggedIn && (
         <nav className="header__nav">
           <span className="header__email">{email}</span>

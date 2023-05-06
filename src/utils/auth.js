@@ -15,10 +15,10 @@ const headers = {
 }
 
 export const register = ({ email, password }) => {
-  return fetch(`${BASE_URL}signup`, {
+  return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password }),
   })
   .then((res) => checkResponse(res));
 };
@@ -27,7 +27,7 @@ export const login = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ email, password })
+    body: JSON.stringify({ email, password }),
   })
   .then((res) => checkResponse(res));
 };
@@ -37,8 +37,8 @@ export const checkToken = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        ...headers,
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((res) => checkResponse(res));

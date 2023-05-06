@@ -1,7 +1,6 @@
 .header__info {
     display: flex;
-    margin: 6px, 0, 0;
-    padding: 0;
+    margin-top: 6px;
 }
 
 
