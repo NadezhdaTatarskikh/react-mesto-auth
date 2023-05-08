@@ -6,13 +6,11 @@ const checkResponse = (res) => {
       return res.json();
     } 
     // если ошибка, отклоняем промис
-    return Promise.reject(
-      new Error(`Ошибка ${res.status}: ${res.statusText}`)
-      );
+    return Promise.reject(`Ошибка: ${res.status}`);
   }
 
 const headers = {
-  Acceert: 'application/json',
+   Acceert: 'application/json',
   'Content-Type': 'application/json'
 }
 

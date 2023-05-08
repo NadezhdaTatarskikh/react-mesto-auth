@@ -173,10 +173,10 @@ function App() {
     .then((data) => {
       setRegisterSuccess(true);
       handleInfoTooltip();
-      navigate.push('/sign-in');
+      navigate('/sign-in');
     })
     .catch((err) => {
-      console.log(`Ошибка: ${err}`);
+      console.log(err);
       setRegisterSuccess(false);
       handleInfoTooltip();
     });
@@ -189,29 +189,29 @@ function App() {
     .then((data) => {
         setLoggedIn(true);
         localStorage.setItem('jwt', data.token);
-        navigate.push('/');
+        navigate('/');
     })
     .catch((err) => {
-      console.log(`Ошибка: ${err}`);
+      console.log(err);
       handleInfoTooltip();      
     });
   };
 
   // Проверка токена
 const handleTokenCheck = () => {
-  const jwt = localStorage.getItem('jwt');
-  if (jwt) {
+  const token = localStorage.getItem('jwt');
+  if (token) {
     return;
   }
   auth
-  .checkToken(jwt)
-  .then((data) => {
-    setHeaderEmail(data.email);
+  .checkToken(token)
+  .then((res) => {
+    setHeaderEmail(res.data.email);
     setLoggedIn(true);
-    navigate.push('/');
+    navigate('/');
   })
   .catch((err) => {
-    console.log(`Ошибка: ${err}`);
+    console.log(err);
   });
 };
 
@@ -222,7 +222,7 @@ useEffect(()=> {
 
 useEffect(() => {
   if(loggedIn) {
-    navigate.push('/');
+    navigate('/');
   }
 }, [loggedIn, navigate]);
 
@@ -252,7 +252,7 @@ useEffect(() => {
 function handleSingOut() {
   setLoggedIn(false);
   localStorage.removeItem('jwt');
-  navigate.push('/sign-in');
+  navigate('/sign-in');
 };
 
   return (
