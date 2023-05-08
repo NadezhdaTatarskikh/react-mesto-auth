@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AuthWithForm from "./AuthWithForm";
 
-const Register = ({ register }) => {
+const Register = ({ onRegister }) => {
   const [ registrationValues, setRegistrationValues ] = useState({ email: '', password: '' });
 
   const handleChange = (evt) => {
@@ -15,7 +15,7 @@ const Register = ({ register }) => {
   const handleSubmit = (event) => {
     // Запрещаем браузеру переходить по адресу формы
     event.preventDefault(); 
-    register(registrationValues);
+    onRegister(registrationValues);
   };
 
   return (

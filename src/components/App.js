@@ -35,63 +35,38 @@ function App() {
   //**переменную состояния карточки*/
   const [cards, setCards] = React.useState([]);
 
-  // переменная логина
-  const [loggedIn, setLoggedIn] = useState(false);
-
+  /**Переменные состояния зарегистрированного пользователя*/
+  const [loggedIn, setLoggedIn] = useState(false);   
+  const [registerSuccess, setRegisterSuccess] = useState(false);
+   /**Переменная состояния для попапа страницы регистрации*/
+  const [infoSuccessOpen, setInfoSuccessOpen] = useState(true);  
   // переменные хедера
-  const [headerEmail, setHeaderEmail] = useState('');
-
-  //переменные InfoTooltip
-  const [registerSuccess, setRegisterSuccess] = useState(false); //open popup 
-  const [infoSuccess, setInfoSuccess] = useState(true); 
-
+  const [headerEmail, setHeaderEmail] = useState('');  
+  
   //добавили хук истории
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if(loggedIn) {
-      Promise.all([api.getInitialCards(), api.getUserInfo()]);
-      api
-        .getUserInfo()
-        .then((data) => {
-          setCurrentUser(data);
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        });
-      api
-        .getInitialCards()
-        .then((cards) => {
-          setCards(cards);
-        })
-        .catch((err) => {
-          console.log(`Ошибка: ${err}`);
-        });
-      }
-    }, [loggedIn]); 
-
+  
   /**Открытие попапов */
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-  }
-
+  };
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-  }
-
+  };
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-  }
-
+  };
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsCardPopupOpen(true);
-  }
-
+  };
   function handleCardDeleteClick(card) {
     setSelectedCard(card);
     setIsDeleteCardPopupOpen(true);
-  }
+  };
+  function handleInfoTooltip() {
+    setInfoSuccessOpen(true);
+  };
 
   // закрытие попапов
   function closeAllPopups() {
@@ -101,7 +76,7 @@ function App() {
     setIsCardPopupOpen(false);
     setSelectedCard(null);
     setIsDeleteCardPopupOpen(false);
-    setRegisterSuccess(false);
+    setInfoSuccessOpen(false);
   }
 
   // закрытие по ESC
@@ -192,73 +167,93 @@ function App() {
   }
 
   // Регистрация пользователи
-  function handleRegistration(email, password) {
-    auth.register(email, password)
-    .then((res) => {
-      navigate.push('/sign-in');
-      setInfoSuccess(true);  
-      return res;
-    })
-    .catch((err) => {
-      setInfoSuccess(false);
-      console.log(`Ошибка: ${err}`);
-    })
-.finally(() => {
-  setRegisterSuccess(true);
-});
-  }
-
-  // Авторизация пользователя
-  function handleAuthorization(email, password) {
-    auth.login(email, password)
-    .then(data => {
-      if(data.token) {
-        localStorage.setItem('jwt', data.token);
-       setLoggedIn(true);
-       setHeaderEmail(email)
-      }
-  })
-    .catch((err) => {
-      setInfoSuccess(false);
+  function handleRegistration(data) {
+    return auth
+    .register(data)
+    .then((data) => {
       setRegisterSuccess(true);
+      handleInfoTooltip();
+      navigate.push('/sign-in');
+    })
+    .catch((err) => {
       console.log(`Ошибка: ${err}`);
+      setRegisterSuccess(false);
+      handleInfoTooltip();
     });
   };
 
-  // выход пользователя
-  function handleSingOut() {
-    setLoggedIn(false);
-    setHeaderEmail('');
-    localStorage.removeItem('jwt');
-    navigate.push('/sign-in');
-  }
+  // Авторизация пользователя
+  function handleAuthorization(data) {
+    return auth
+    .login(data)
+    .then((data) => {
+        setLoggedIn(true);
+        localStorage.setItem('jwt', data.token);
+        navigate.push('/');
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+      handleInfoTooltip();      
+    });
+  };
 
   // Проверка токена
-const tokenCheck = () => {
+const handleTokenCheck = () => {
   const jwt = localStorage.getItem('jwt');
   if (jwt) {
-  auth.checkToken(jwt)
-  .then(data => {
-    if(data) {
-    setHeaderEmail(data.data.email)
+    return;
   }
-  setLoggedIn(true);
+  auth
+  .checkToken(jwt)
+  .then((data) => {
+    setHeaderEmail(data.email);
+    setLoggedIn(true);
+    navigate.push('/');
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
   });
-}
-}
+};
 
- useEffect(()=> {
-    tokenCheck();
-  }, []);
+useEffect(()=> {
+  handleTokenCheck();
+   // eslint-disable-next-line
+}, []);
 
- useEffect(() => {
-    if(loggedIn) {
-      navigate.push('/');
+useEffect(() => {
+  if(loggedIn) {
+    navigate.push('/');
+  }
+}, [loggedIn, navigate]);
+
+useEffect(() => {
+  if(loggedIn) {
+    Promise.all([api.getInitialCards(), api.getUserInfo()]);
+    api
+      .getUserInfo()
+      .then((data) => {
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+    api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
     }
-  }, [loggedIn, navigate]);
+  }, [loggedIn]); 
+
+// выход пользователя
+function handleSingOut() {
+  setLoggedIn(false);
+  localStorage.removeItem('jwt');
+  navigate.push('/sign-in');
+};
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -285,10 +280,9 @@ const tokenCheck = () => {
               />
             }
           />
-          <Route path="/sign-in" element={<Login setHeaderEmail={setHeaderEmail} login={handleAuthorization} onSignOut={handleSingOut}/>} />
-          <Route path="/sign-up" element={<Register setHeaderEmail={setHeaderEmail} register={handleRegistration}/>} />
+          <Route path="/sign-in" element={<Login onLogin={handleAuthorization} />} />
+          <Route path="/sign-up" element={<Register onRegister={handleRegistration} />} />
         </Routes>
-        <Footer loggedIn={loggedIn} />
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
@@ -319,11 +313,12 @@ const tokenCheck = () => {
           isRenderLoading={isRenderLoading}
         />
         <InfoTooltip
-        isOpen={registerSuccess}
+        isOpen={infoSuccessOpen}
         onClose={closeAllPopups}
         name="success"
-        success={infoSuccess}
+        success={registerSuccess}
         />
+        <Footer loggedIn={loggedIn} />
       </div>
     </CurrentUserContext.Provider>
   );

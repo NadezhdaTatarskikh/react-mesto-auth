@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import AuthWithForm from "./AuthWithForm";
+import AuthWithForm from "./AuthWithForm.js";
 
 const Login = ({ onLogin }) => {
-    const [loginDataUser, setLoginDataUser] = useState({ email: "", password: "" });
+    const [loginDataUser, setLoginDataUser] = useState({ 
+        email: '', 
+        password: '' 
+    });
 
     function handleChange(evt) {
         const { name, value } = evt.target;

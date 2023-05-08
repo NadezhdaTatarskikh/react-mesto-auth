@@ -32,8 +32,8 @@ const EditProfilePopup = ({
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
-      name,
-      about: description,
+      username: name,
+      about: description
     });
   }
 
@@ -51,7 +51,7 @@ const EditProfilePopup = ({
       <input
         type="text"
         className="popup__input popup__input_text_name"
-        value={name}
+        value={name || ''}
         onChange={handleChangeName}
         name="userName"
         placeholder="Ваше Имя"
@@ -64,7 +64,7 @@ const EditProfilePopup = ({
       <input
         type="text"
         className="popup__input popup__input_text_job"
-        value={description}
+        value={description || ''}
         onChange={handleChangeDescription}
         name="userJob"
         placeholder="О себе"
