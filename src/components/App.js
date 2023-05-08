@@ -14,7 +14,7 @@ import AddPlacePopup from "./AddPlacePopup.js";
 import PopupWithDeleteCard from "./PopupWithDeleteCard.js";
 import Register from "./Register.js";
 import Login from "./Login.js";
-import InfoTooltip from "./InfoTooltip .js"; 
+import InfoTooltip from "./InfoTooltip .js";
 
 function App() {
   /**переменные состояния попапов */
@@ -33,40 +33,40 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   //**переменную состояния карточки*/
-  const [cards, setCards] = React.useState([]);
+  const [cards, setCards] = useState([]);
 
   /**Переменные состояния зарегистрированного пользователя*/
-  const [loggedIn, setLoggedIn] = useState(false);   
+  const [loggedIn, setLoggedIn] = useState(false);
   const [registerSuccess, setRegisterSuccess] = useState(false);
-   /**Переменная состояния для попапа страницы регистрации*/
-  const [infoSuccessOpen, setInfoSuccessOpen] = useState(true);  
+  /**Переменная состояния для попапа страницы регистрации*/
+  const [infoSuccessOpen, setInfoSuccessOpen] = useState(true);
   // переменные хедера
-  const [headerEmail, setHeaderEmail] = useState('');  
-  
+  const [headerEmail, setHeaderEmail] = useState("");
+
   //добавили хук истории
   const navigate = useNavigate();
-  
+
   /**Открытие попапов */
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-  };
+  }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-  };
+  }
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-  };
+  }
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsCardPopupOpen(true);
-  };
+  }
   function handleCardDeleteClick(card) {
     setSelectedCard(card);
     setIsDeleteCardPopupOpen(true);
-  };
+  }
   function handleInfoTooltip() {
     setInfoSuccessOpen(true);
-  };
+  }
 
   // закрытие попапов
   function closeAllPopups() {
@@ -80,15 +80,15 @@ function App() {
   }
 
   // закрытие по ESC
-	useEffect(() => {
-		const closeByEscape = (e) => {
-		  if (e.key === 'Escape') {
-			closeAllPopups();
-		  }
-		}
-		document.addEventListener('keydown', closeByEscape);
-		return () => document.removeEventListener('keydown', closeByEscape);
-	}, []);
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === "Escape") {
+        closeAllPopups();
+      }
+    };
+    document.addEventListener("keydown", closeByEscape);
+    return () => document.removeEventListener("keydown", closeByEscape);
+  }, []);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -169,91 +169,90 @@ function App() {
   // Регистрация пользователи
   function handleRegistration(data) {
     return auth
-    .register(data)
-    .then((data) => {
-      setRegisterSuccess(true);
-      handleInfoTooltip();
-      navigate('/sign-in');
-    })
-    .catch((err) => {
-      console.log(err);
-      setRegisterSuccess(false);
-      handleInfoTooltip();
-    });
-  };
+      .register(data)
+      .then((data) => {
+        setRegisterSuccess(true);
+        handleInfoTooltip();
+        navigate("/sign-in");
+      })
+      .catch((err) => {
+        console.log(err);
+        setRegisterSuccess(false);
+        handleInfoTooltip();
+      });
+  }
 
   // Авторизация пользователя
   function handleAuthorization(data) {
     return auth
-    .login(data)
-    .then((data) => {
+      .login(data)
+      .then((data) => {
         setLoggedIn(true);
-        localStorage.setItem('jwt', data.token);
-        navigate('/');
+        localStorage.setItem("jwt", data.token);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        handleInfoTooltip();
+      });
+  }
+
+  // Проверка токена
+  const handleTokenCheck = () => {
+    const token = localStorage.getItem('jwt');
+    if (!token) {
+      return;
+    }
+    auth
+    .checkToken(token)
+    .then((res) => {
+      setHeaderEmail(res.data.email);
+      setLoggedIn(true);
     })
     .catch((err) => {
       console.log(err);
-      handleInfoTooltip();      
     });
   };
 
-  // Проверка токена
-const handleTokenCheck = () => {
-  const token = localStorage.getItem('jwt');
-  if (token) {
-    return;
-  }
-  auth
-  .checkToken(token)
-  .then((res) => {
-    setHeaderEmail(res.data.email);
-    setLoggedIn(true);
-    navigate('/');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-};
+  useEffect(() => {
+    handleTokenCheck();
+    // eslint-disable-next-line
+  }, []);
 
-useEffect(()=> {
-  handleTokenCheck();
-   // eslint-disable-next-line
-}, []);
-
-useEffect(() => {
-  if(loggedIn) {
-    navigate('/');
-  }
-}, [loggedIn, navigate]);
-
-useEffect(() => {
-  if(loggedIn) {
-    Promise.all([api.getInitialCards(), api.getUserInfo()]);
-    api
-      .getUserInfo()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-    api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
+  useEffect(() => {
+    if (loggedIn) {
+      navigate("/");
     }
-  }, [loggedIn]); 
+  }, [loggedIn, navigate]);
 
-// выход пользователя
-function handleSingOut() {
-  setLoggedIn(false);
-  localStorage.removeItem('jwt');
-  navigate('/sign-in');
-};
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getInitialCards(), api.getUserInfo()]);
+      api
+        .getUserInfo()
+        .then((data) => {
+          setCurrentUser(data);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+      api
+        .getInitialCards()
+        .then((cards) => {
+          setCards(cards);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+    }
+  }, [loggedIn]);
+
+  // выход пользователя
+  function handleSingOut() {
+    setLoggedIn(false);
+    localStorage.removeItem("jwt");
+    navigate("/sign-in");
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -269,7 +268,7 @@ function handleSingOut() {
             element={
               <ProtectedRoute
                 element={Main}
-                loggedId={loggedIn}
+                loggedIn={loggedIn}
                 onEditProfile={handleEditProfileClick}
                 onEditAvatar={handleEditAvatarClick}
                 onAddPlace={handleAddPlaceClick}
@@ -280,8 +279,14 @@ function handleSingOut() {
               />
             }
           />
-          <Route path="/sign-in" element={<Login onLogin={handleAuthorization} />} />
-          <Route path="/sign-up" element={<Register onRegister={handleRegistration} />} />
+          <Route
+            path="/sign-in"
+            element={<Login onLogin={handleAuthorization} />}
+          />
+          <Route
+            path="/sign-up"
+            element={<Register onRegister={handleRegistration} />}
+          />
         </Routes>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -313,10 +318,10 @@ function handleSingOut() {
           isRenderLoading={isRenderLoading}
         />
         <InfoTooltip
-        isOpen={infoSuccessOpen}
-        onClose={closeAllPopups}
-        name="success"
-        success={registerSuccess}
+          isOpen={infoSuccessOpen}
+          onClose={closeAllPopups}
+          name="success"
+          success={registerSuccess}
         />
         <Footer loggedIn={loggedIn} />
       </div>

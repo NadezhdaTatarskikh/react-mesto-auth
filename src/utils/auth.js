@@ -9,15 +9,11 @@ const checkResponse = (res) => {
     return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-const headers = {
-   Acceert: 'application/json',
-  'Content-Type': 'application/json'
-}
-
 export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
-    headers,
+    headers: {'Content-Type': 'application/json'
+  },
     body: JSON.stringify({ email, password }),
   })
   .then((res) => checkResponse(res));
@@ -26,7 +22,9 @@ export const register = ({ email, password }) => {
 export const login = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
-    headers,
+    headers: {
+			'Content-Type': 'application/json'
+		},
     body: JSON.stringify({ email, password }),
   })
   .then((res) => checkResponse(res));
@@ -37,7 +35,7 @@ export const checkToken = (token) => {
     return fetch(`${BASE_URL}/users/me`, {
       method: 'GET',
       headers: {
-        ...headers,
+       'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     })
