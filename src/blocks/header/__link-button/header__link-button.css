@@ -4,9 +4,11 @@
   font-style: normal;
   font-weight: 400;
   margin-left: 24px;
-  color: #FFFFFF;
+  color: #ffffff;
   text-decoration: none;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
 }
 
 .header__link-button:hover {
@@ -15,15 +17,7 @@
 
 @media screen and (max-width: 767px) {
   .header__link-button {
-     font-size: 14px;
-     line-height: 17px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }
-
-
-
-
-
-
-
-

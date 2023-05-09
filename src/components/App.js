@@ -189,6 +189,7 @@ function App() {
       .then((data) => {
         setLoggedIn(true);
         localStorage.setItem("jwt", data.token);
+        handleTokenCheck();
         navigate("/");
       })
       .catch((err) => {
@@ -199,24 +200,23 @@ function App() {
 
   // Проверка токена
   const handleTokenCheck = () => {
-    const token = localStorage.getItem('jwt');
+    const token = localStorage.getItem("jwt");
     if (!token) {
       return;
     }
     auth
-    .checkToken(token)
-    .then((res) => {
-      setHeaderEmail(res.data.email);
-      setLoggedIn(true);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .checkToken(token)
+      .then((data) => {
+        setHeaderEmail(data.data.email);
+        setLoggedIn(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     handleTokenCheck();
-    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -251,6 +251,7 @@ function App() {
   function handleSingOut() {
     setLoggedIn(false);
     localStorage.removeItem("jwt");
+    setHeaderEmail("");
     navigate("/sign-in");
   }
 
@@ -259,7 +260,7 @@ function App() {
       <div className="page">
         <Header
           loggedIn={loggedIn}
-          email={headerEmail}
+          headerEmail={headerEmail}
           onSignOut={handleSingOut}
         />
         <Routes>

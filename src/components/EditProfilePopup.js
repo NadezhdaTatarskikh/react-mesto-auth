@@ -32,7 +32,7 @@ const EditProfilePopup = ({
 
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
-      username: name,
+      name,
       about: description
     });
   }
