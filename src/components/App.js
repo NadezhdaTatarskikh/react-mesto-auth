@@ -41,7 +41,7 @@ function App() {
   /**Переменная состояния для попапа страницы регистрации*/
   const [infoSuccessOpen, setInfoSuccessOpen] = useState(false);
   // переменные хедера
-  const [headerEmail, setHeaderEmail] = useState('');
+  const [headerEmail, setHeaderEmail] = useState("");
 
   //добавили хук истории
   const navigate = useNavigate();
