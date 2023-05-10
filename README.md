@@ -52,14 +52,14 @@
 
 * JavaScript
 
-[Ссылка на проект gh-pages](https://nadezhdatatarskikh.github.io/react-mesto-auth/)
-
 ## Макеты Проектной работы в Figma: 
 [Ссылка на макет в Figma](https://www.figma.com/file/5H3gsn5lIGPwzBPby9jAOo/Sprint-14-RU?node-id=0%3A1)
 
 ## Чек лист:
 
 [Чек лист](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-12.pdf)
+
+[Ссылка на проект gh-pages](https://nadezhdatatarskikh.github.io/react-mesto-auth)
 
 ## Доработать:
 
