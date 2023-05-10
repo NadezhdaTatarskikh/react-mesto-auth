@@ -59,6 +59,7 @@
 
 [Чек лист](https://code.s3.yandex.net/web-developer/checklists-pdf/new-program/checklist-12.pdf)
 
+## Ссылка на сайт:
 [Ссылка на проект gh-pages](https://nadezhdatatarskikh.github.io/react-mesto-auth)
 
 ## Доработать:
