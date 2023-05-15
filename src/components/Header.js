@@ -13,6 +13,14 @@ const Header = ({ loggedIn, headerEmail, onSignOut }) => {
       <div className="header__info">
         <Routes>
           <Route
+            path="/react-mesto-auth"
+            element={
+              <Link to="/sign-in" className="header__link-button">
+                Войти
+              </Link>
+            }
+          />
+          <Route
             path="/"
             element={
               <nav className="header__nav">

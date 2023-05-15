@@ -34,6 +34,7 @@
 @import url(../blocks/photo-grid/__like/ghoto-grid__like.css);
 
 @import url(../blocks/footer/__text/footer__text.css);
+@import url(../blocks/footer/_invisible/footer_invisible.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
