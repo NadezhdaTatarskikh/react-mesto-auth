@@ -13,6 +13,20 @@ const Header = ({ loggedIn, headerEmail, onSignOut }) => {
       <div className="header__info">
         <Routes>
           <Route
+            path="/"
+            element={
+              <nav className="header__nav">
+                <p className="header__email">{headerEmail}</p>
+                <button
+                  className="header__link-button header__link-button_type_authorized"
+                  onClick={() => onSignOut()}
+                >
+                  {buttonText}
+                </button>
+              </nav>
+            }
+          />
+          <Route
             path="/sign-in"
             element={
               <Link to="/sign-up" className="header__link-button">
@@ -29,17 +43,6 @@ const Header = ({ loggedIn, headerEmail, onSignOut }) => {
             }
           ></Route>
         </Routes>
-        {loggedIn && (
-          <nav className="header__nav">
-            <p className="header__email">{headerEmail}</p>
-            <button
-              className="header__link-button header__link-button_type_authorized"
-              onClick={() => onSignOut()}
-            >
-              {buttonText}
-            </button>
-          </nav>
-        )}
       </div>
     </header>
   );
